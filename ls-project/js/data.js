@@ -22,7 +22,7 @@ export const colecao = [
     }
 ];
 
-export const fragancia = [
+export const fragrancia = [
     {
         id: 1,
         nome: "Essência de Jasmim",
