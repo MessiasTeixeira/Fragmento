@@ -1,6 +1,7 @@
 import '/css/style.css';
 
 let contador = 0;
+let preçoTotal = 0;
 
 const adicionar = document.querySelectorAll('#adicionar-produto');
 const remover = document.querySelectorAll('#remover-produto');
@@ -8,6 +9,8 @@ const carrinhoPainel = document.getElementById('carrinho-painel');
 const carrinhoSidebar = document.getElementById('carrinho-sidebar');
 const carrinhoOverlay = document.getElementById('carrinho-overlay');
 const fecharCarrinho = document.getElementById('fechar-carrinho');
+const subtotal = document.getElementById('carrinho-subtotal');
+const carrinhototal = document.getElementById('carrinho-total');
 
 // Remover itens do carrinho
 remover.forEach(botao => {
@@ -26,6 +29,11 @@ remover.forEach(botao => {
                     item.remove();
                     contador--;
                     carrinhoQuantidade.textContent = contador;
+                    preçoTotal -= parseFloat(botao.closest('.bg-white').querySelector('.text-amber-800').textContent.replace('R$', '').replace(',', '.'));
+                    if (preçoTotal < 0) {
+                        preçoTotal = 0;
+                    }
+                    AtualizarContador();
                 }
             });
         }
@@ -35,6 +43,7 @@ remover.forEach(botao => {
 // Adicionar itens ao carrinho
 adicionar.forEach(botao => {
     botao.addEventListener('click', () => {
+        preçoTotal += parseFloat(botao.closest('.bg-white').querySelector('.text-amber-800').textContent.replace('R$', '').replace(',', '.'));
         contador++;
         const card = botao.closest('.bg-white'); 
         const nome = card.querySelector('h3').textContent; 
@@ -60,7 +69,8 @@ adicionar.forEach(botao => {
         `;
 
         carrinhoItems.insertAdjacentHTML('beforeend', itemCarrinho);
-        document.getElementById('carrinho-sidebar').classList.remove('translate-x-full');
+        document.getElementById('carrinho-sidebar').classList.remove('translate-x-full');   
+        AtualizarContador();
     });
 });
 
@@ -68,7 +78,6 @@ adicionar.forEach(botao => {
 document.addEventListener('click', (x) => {
     if (x.target.closest('#remover-item')) {
         const item = x.target.closest('.flex.items-center');
-        const nomeProduto = item.querySelector('h3').textContent;
         const carrinhoQuantidade = document.getElementById('carrinho-quantidade');
         contador--;
         carrinhoQuantidade.textContent = contador;
@@ -86,3 +95,8 @@ fecharCarrinho.addEventListener('click', () => {
     carrinhoSidebar.classList.add('translate-x-full');
     carrinhoOverlay.classList.add('hidden');
 });
+
+function AtualizarContador() {
+  subtotal.textContent = `R$ ${preçoTotal.toFixed(2).replace('.', ',')}`;
+  carrinhototal.textContent = `R$ ${preçoTotal.toFixed(2).replace('.', ',')}`;
+}
