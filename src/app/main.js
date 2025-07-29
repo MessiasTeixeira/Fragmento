@@ -1,4 +1,5 @@
-import '/css/style.css';
+import { atualizarContador } from "./lib/utils";
+import { useState } from "react";
 
 let contador = 0;
 let preçoTotal = 0;
@@ -33,7 +34,7 @@ remover.forEach(botao => {
                     if (preçoTotal < 0) {
                         preçoTotal = 0;
                     }
-                    AtualizarContador();
+                    atualizarContador();
                 }
             });
         }
@@ -70,7 +71,7 @@ adicionar.forEach(botao => {
 
         carrinhoItems.insertAdjacentHTML('beforeend', itemCarrinho);
         document.getElementById('carrinho-sidebar').classList.remove('translate-x-full');   
-        AtualizarContador();
+        atualizarContador();
     });
 });
 
@@ -96,7 +97,13 @@ fecharCarrinho.addEventListener('click', () => {
     carrinhoOverlay.classList.add('hidden');
 });
 
-function AtualizarContador() {
-  subtotal.textContent = `R$ ${preçoTotal.toFixed(2).replace('.', ',')}`;
-  carrinhototal.textContent = `R$ ${preçoTotal.toFixed(2).replace('.', ',')}`;
+function Carrinho() {
+    const [itens, setItens] = useState([]);
+    const [total, setTotal] = useState(0);
+    const [quantidade, setQuantidade] = useState(0);
+
+    const adicionarItem = (item) => {
+        setItens(anterior => [...anterior, item]);
+        setTotal(anterior => anterior + item.preco);
+    }
 }
