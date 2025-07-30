@@ -96,14 +96,3 @@ fecharCarrinho.addEventListener('click', () => {
     carrinhoSidebar.classList.add('translate-x-full');
     carrinhoOverlay.classList.add('hidden');
 });
-
-function Carrinho() {
-    const [itens, setItens] = useState([]);
-    const [total, setTotal] = useState(0);
-    const [quantidade, setQuantidade] = useState(0);
-
-    const adicionarItem = (item) => {
-        setItens(anterior => [...anterior, item]);
-        setTotal(anterior => anterior + item.preco);
-    }
-}

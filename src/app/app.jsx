@@ -10,15 +10,16 @@ import CriarCardPerfume from './components/CardPerfume';
 import { useState } from 'react';
 
 function App() {
+  const [cartOpen, setCartOpen] = useState(false);
   return (
     <div>
-      <Navbar/>
-      <Cart/>
+      <Navbar setCartOpen = {setCartOpen}/>
+      <Cart cartOpen={cartOpen} setCartOpen={setCartOpen}/>
       <Hero/>
       <Collection/>
-      <CriarCardPerfume/>
+      <CriarCardPerfume setCartOpen={setCartOpen}/>
       <Fragrance/>
-      <CriarCardFragrance/>
+      <CriarCardFragrance setCartOpen={setCartOpen}/>
       <History/>
       <Contact/>
     </div>

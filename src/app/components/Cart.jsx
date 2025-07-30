@@ -1,12 +1,12 @@
-function Cart() {
+function Cart({ cartOpen, setCartOpen }) {
   return (
     <div>
-        <div id="carrinho-sidebar" className="fixed top-0 right-0 h-full w-80 bg-white shadow-xl transform translate-x-full transition-transform duration-300 ease-in-out z-50">
+        <div id="carrinho-sidebar" className={`fixed top-0 right-0 h-full w-80 bg-white shadow-xl transform transition-transform duration-300 ease-in-out z-50 ${cartOpen ? " " : "translate-x-full"}`}>
             <div className="flex flex-col h-full">
                 <div className="p-4 border-b">
                     <div className="flex items-center justify-between">
                         <h2 className="text-xl font-playfair font-bold">Meu Carrinho</h2>
-                        <button id="fechar-carrinho" className="text-gray-500 hover:text-gray-700">
+                        <button id="fechar-carrinho" className={`cursor-pointer text-gray-500 hover:text-gray-700`} onClick={() => setCartOpen(false)}>
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                             </svg>
@@ -31,14 +31,14 @@ function Cart() {
                             <span>Total</span>
                             <span id="carrinho-total">R$ 0,00</span>
                         </div>
-                        <button className="w-full bg-amber-800 text-white py-2 px-4 rounded hover:bg-amber-700 transition-colors">
+                        <button className="cursor-pointer w-full bg-amber-800 text-white py-2 px-4 rounded hover:bg-amber-700 transition-colors">
                             Finalizar Compra
                         </button>
                     </div>
                 </div>
             </div>
         </div>
-        <div id="carrinho-overlay" className="fixed inset-0 bg-black bg-opacity-50 hidden z-40"></div>
+        <div id="carrinho-overlay" className={`fixed inset-0 z-40 ${cartOpen ? "" : "hidden"}`}/>
     </div>
   );
 }

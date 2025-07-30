@@ -44,7 +44,7 @@ function Contact() {
                   <textarea id="mensagem" name="mensagem" rows="4" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500"></textarea>
                 </div>
                 <div>
-                  <button type="submit" className="w-full bg-amber-800 text-white py-2 px-4 rounded hover:bg-amber-700 transition-colors">
+                  <button type="submit" className="cursor-pointer w-full bg-amber-800 text-white py-2 px-4 rounded hover:bg-amber-700 transition-colors">
                     Enviar Mensagem
                   </button>
                 </div>

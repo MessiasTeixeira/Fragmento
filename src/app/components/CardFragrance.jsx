@@ -1,7 +1,7 @@
 import { formatarPreco } from '../lib/utils.js';
 import { fragrancia } from '../data/data.js';
 
-function CriarCardFragrance() {
+function CriarCardFragrance({ setCartOpen }) {
     return (
         <section id="fragancias-container" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {fragrancia.map(item => (
@@ -15,10 +15,10 @@ function CriarCardFragrance() {
                     <div className="mt-2 flex items-center justify-between">
                         <span className="text-amber-800 font-bold">{formatarPreco(item.preco)}</span>
                         <div className="flex gap-2">
-                            <button id="adicionar-produto" className="btn-comprar bg-amber-800 text-white px-4 py-2 rounded-md hover:bg-amber-700 transition-colors">
+                            <button id="adicionar-produto" className="cursor-pointer btn-comprar bg-amber-800 text-white px-4 py-2 rounded-md hover:bg-amber-700 transition-colors" onClick={() => setCartOpen(true)}>
                                 Comprar
                             </button>
-                            <button id="remover-produto" className="btn-remover bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition-colors">
+                            <button id="remover-produto" className="cursor-pointer btn-remover bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition-colors">
                                 Remover
                             </button>
                         </div>
