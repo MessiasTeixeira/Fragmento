@@ -38,7 +38,7 @@ function Cart({ cartOpen, setCartOpen }) {
                 </div>
             </div>
         </div>
-        <div id="carrinho-overlay" className={`fixed inset-0 z-40 ${cartOpen ? "" : "hidden"}`}/>
+        <div id="carrinho-overlay" className={`fixed top-0 right-0 h-full w-80 z-40${cartOpen ? "" : "hidden"}`}/>
     </div>
   );
 }

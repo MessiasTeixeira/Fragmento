@@ -11,15 +11,16 @@ import { useState } from 'react';
 
 function App() {
   const [cartOpen, setCartOpen] = useState(false);
+  const [qtdCart, setQtdCart] = useState(0);
   return (
     <div>
-      <Navbar setCartOpen = {setCartOpen}/>
+      <Navbar setCartOpen = {setCartOpen} qtdCart={qtdCart} setQtdCart={setQtdCart}/>
       <Cart cartOpen={cartOpen} setCartOpen={setCartOpen}/>
       <Hero/>
       <Collection/>
-      <CriarCardPerfume setCartOpen={setCartOpen}/>
+      <CriarCardPerfume setCartOpen={setCartOpen} setQtdCart={setQtdCart}/>
       <Fragrance/>
-      <CriarCardFragrance setCartOpen={setCartOpen}/>
+      <CriarCardFragrance setCartOpen={setCartOpen} setQtdCart={setQtdCart}/>
       <History/>
       <Contact/>
     </div>
