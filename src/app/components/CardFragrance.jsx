@@ -1,11 +1,11 @@
 import { formatarPreco } from '../lib/utils.js';
 import { fragrancia } from '../data/data.js';
 
-function CriarCardFragrance({ setCartOpen, setQtdCart }) {
+function CriarCardFragrance({ setCartOpen, setQtdCart, handleClick }) {
     return (
         <section id="fragancias-container" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {fragrancia.map(item => (
-                <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                <div key={item.id} className="bg-white rounded-lg shadow-md overflow-hidden">
                     <div className="relative pb-2/3">
                         <img src={item.imagem} alt={item.nome} className="absolute h-full w-full object-cover"/>
                     </div>
@@ -15,10 +15,10 @@ function CriarCardFragrance({ setCartOpen, setQtdCart }) {
                     <div className="mt-2 flex items-center justify-between">
                         <span className="text-amber-800 font-bold">{formatarPreco(item.preco)}</span>
                         <div className="flex gap-2">
-                            <button id="adicionar-produto" className="cursor-pointer btn-comprar bg-amber-800 text-white px-4 py-2 rounded-md hover:bg-amber-700 transition-colors" onClick={() => { setCartOpen(true); setQtdCart(prev => prev + 1); }}>
+                            <button id="adicionar-produto" className="cursor-pointer btn-comprar bg-amber-800 text-white px-4 py-2 rounded-md hover:bg-amber-700 transition-colors" onClick={() => { setCartOpen(true); setQtdCart(prev => prev + 1); handleClick(item.nome, "adicionar"); }}>
                                 Comprar
                             </button>
-                            <button id="remover-produto" className="cursor-pointer btn-remover bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition-colors" onClick={() => { setQtdCart(prev => Math.max(prev - 1, 0)); }}>
+                            <button id="remover-produto" className="cursor-pointer btn-remover bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition-colors" onClick={() => { setQtdCart(prev => Math.max(prev - 1, 0)); handleClick(item.nome, "remover"); }}>
                                 Remover
                             </button>
                         </div>
