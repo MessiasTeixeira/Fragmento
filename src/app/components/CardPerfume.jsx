@@ -15,10 +15,10 @@ function CriarCardPerfume({ setCartOpen, setQtdCart, handleClick }) {
                     <div className="mt-2 flex items-center justify-between">
                         <span className="text-amber-800 font-bold">{formatarPreco(item.preco)}</span>
                         <div className="flex gap-2">
-                            <button id="adicionar-produto" className="cursor-pointer btn-comprar bg-amber-800 text-white px-4 py-2 rounded-md hover:bg-amber-700 transition-colors" onClick={() => { setCartOpen(true); setQtdCart(prev => prev + 1); handleClick(item.nome, "adicionar"); }}>
+                            <button id="adicionar-produto" className="cursor-pointer btn-comprar bg-amber-800 text-white px-4 py-2 rounded-md hover:bg-amber-700 transition-colors" onClick={() => { setCartOpen(true); setQtdCart(prev => prev + 1); handleClick(item.nome, item.preco, "adicionar"); }}>
                                 Comprar
                             </button>
-                            <button id="remover-produto" className="cursor-pointer btn-remover bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition-colors" onClick={() => { setQtdCart(prev => Math.max(prev - 1, 0)); handleClick(item.nome, "remover"); }}>
+                            <button id="remover-produto" className="cursor-pointer btn-remover bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition-colors" onClick={() => { setQtdCart(prev => Math.max(prev - 1, 0)); handleClick(item.nome, item.preco, "remover"); }}>
                                 Remover
                             </button>
                         </div>

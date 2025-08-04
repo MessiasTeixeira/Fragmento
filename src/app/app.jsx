@@ -8,22 +8,54 @@ import Contact from './components/Contact';
 import CriarCardFragrance from './components/CardFragrance';
 import CriarCardPerfume from './components/CardPerfume';
 import { useState } from 'react';
-
+import { fragrancia, colecao } from './data/data.js';
 
 function App() {
   const [cartOpen, setCartOpen] = useState(false);
+  const [item, setItem] = useState([]);
+  const [valor, setValor] = useState(0);
   const [qtdCart, setQtdCart] = useState(0);
   const [itemSelect, setItemSelect] = useState(null);
+  const [itemSelectNameValue, setItemSelectNameValue] = useState(null);
   const [type, setType] = useState(null);
-  const handleClick = ( name, type) => {
+  const handleClick = ( name, value, type) => {
     setItemSelect(name);
+    setItemSelectNameValue(value);
     setType(type);
+
+    if (type === "adicionar") {
+      Add(name, value);
+    } else if (type === "remover") {
+      Remove(name);
+    }
   };
+  
+  function Add(name, value){
+      setValor(prev => prev + Number(value));
+      console.log(name, value);
+      const foundAdd = colecao.find(item => item.nome === name) || fragrancia.find(item => item.nome === name);
+      if (foundAdd) {
+          setItem(prev => [...prev, foundAdd]);
+      }
+  }
+
+  function Remove(){
+      const index = item.findIndex(i => i.nome === itemSelect);
+      const foundRemove = item.find(item => item.nome === itemSelect);
+      if (foundRemove) {
+          const newItem = [...item];
+          newItem.splice(index, 1);
+          setItem(newItem);
+          setValor(prev => Math.max(prev - itemSelectNameValue, 0));
+      }
+  }
+
+
 
   return (
     <div>
       <Navbar setCartOpen = {setCartOpen} qtdCart={qtdCart} setQtdCart={setQtdCart}/>
-      <Cart cartOpen={cartOpen} setCartOpen={setCartOpen} itemSelect={itemSelect} type={type}/>
+      <Cart setQtdCart={setQtdCart} handleClick={handleClick} cartOpen={cartOpen} setCartOpen={setCartOpen} valor={valor} item={item}/>
       <Hero/>
       <Collection/>
       <CriarCardPerfume setCartOpen={setCartOpen} setQtdCart={setQtdCart} handleClick={handleClick}/>

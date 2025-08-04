@@ -1,25 +1,6 @@
-import { useEffect, useState } from "react";
-import { fragrancia } from '../data/data.js';
-import { colecao } from "../data/data.js";
+import { atualizarContador } from "../lib/utils.js";
 
-function Cart({ cartOpen, setCartOpen, itemSelect, type }) {
-    const [item, setItem] = useState([]); 
-
-    useEffect(() => {
-    if (type === "remover") {
-        const foundRemove = item.find(item => item.nome === itemSelect);
-        if (foundRemove) {
-            setItem(item.filter(item => item.nome !== itemSelect));
-        }
-    }
-    if (type === "adicionar") {
-        const foundAdd = colecao.find(item => item.nome === itemSelect) || fragrancia.find(item => item.nome === itemSelect);
-        if (foundAdd) {
-            setItem(prev => [...prev, foundAdd]);
-        }
-      }
-    }, [itemSelect, type])
-
+function Cart({ cartOpen, setCartOpen, handleClick, setQtdCart, item, valor}) {
     return (
         <div>
             <div id="carrinho-sidebar" className={`fixed top-0 right-0 h-full w-80 bg-white shadow-xl transform transition-transform duration-300 ease-in-out z-50 ${cartOpen ? " " : "translate-x-full"}`}>
@@ -43,7 +24,7 @@ function Cart({ cartOpen, setCartOpen, itemSelect, type }) {
                                         <h3 className="font-medium">{item.nome}</h3>
                                         <p className="text-amber-800">{item.preco}</p>
                                     </div>
-                                    <button id="remover-item" className="text-red-500 hover:text-red-700">
+                                    <button id="remover-item" className="cursor-pointer text-red-500 hover:text-red-700" onClick={() => { setQtdCart(prev => Math.max(prev - 1, 0)); handleClick(item.nome, item.preco, "remover");}}>
                                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                         <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
                                         </svg>
@@ -57,7 +38,7 @@ function Cart({ cartOpen, setCartOpen, itemSelect, type }) {
                         <div className="space-y-3">
                             <div className="flex justify-between text-sm">
                                 <span className="text-gray-600">Subtotal</span>
-                                <span id="carrinho-subtotal" className="font-semibold">R$ 0,00</span>
+                                <span id="carrinho-subtotal" className="font-semibold">{atualizarContador(valor)}</span>
                             </div>
                             <div className="flex justify-between text-sm">
                                 <span className="text-gray-600">Frete</span>
@@ -65,7 +46,7 @@ function Cart({ cartOpen, setCartOpen, itemSelect, type }) {
                             </div>
                             <div className="flex justify-between text-lg font-bold pt-2 border-t">
                                 <span>Total</span>
-                                <span id="carrinho-total">R$ 0,00</span>
+                                <span id="carrinho-total">{atualizarContador(valor)}</span>
                             </div>
                             <button className="cursor-pointer w-full bg-amber-800 text-white py-2 px-4 rounded hover:bg-amber-700 transition-colors">
                                 Finalizar Compra

@@ -5,7 +5,7 @@ export function formatarPreco(preco) {
     }).format(preco);
 }
 
-export function atualizarContador() {
-  subtotal.textContent = `R$ ${preçoTotal.toFixed(2).replace('.', ',')}`;
-  carrinhototal.textContent = `R$ ${preçoTotal.toFixed(2).replace('.', ',')}`;
+export function atualizarContador(valor) {
+  const number = Number(valor)
+  return `R$ ${number.toFixed(2).replace('.', ',')}`;
 }
