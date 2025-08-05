@@ -27,6 +27,10 @@ function App() {
       Add(name, value);
     } else if (type === "remover") {
       Remove(name);
+    } else if (type === "limpar") {
+      setItem([]);
+      setValor(0);
+      setQtdCart(0);
     }
   };
   
@@ -39,9 +43,9 @@ function App() {
       }
   }
 
-  function Remove(){
-      const index = item.findIndex(i => i.nome === itemSelect);
-      const foundRemove = item.find(item => item.nome === itemSelect);
+  function Remove(name){
+      const index = item.findIndex(i => i.nome === name);
+      const foundRemove = item.find(item => item.nome === name);
       if (foundRemove) {
           const newItem = [...item];
           newItem.splice(index, 1);
@@ -49,8 +53,6 @@ function App() {
           setValor(prev => Math.max(prev - itemSelectNameValue, 0));
       }
   }
-
-
 
   return (
     <div>
