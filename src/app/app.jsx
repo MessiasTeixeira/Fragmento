@@ -26,7 +26,7 @@ function App() {
     if (type === "adicionar") {
       Add(name, value);
     } else if (type === "remover") {
-      Remove(name);
+      Remove(name, value);
     } else if (type === "limpar") {
       setItem([]);
       setValor(0);
@@ -43,14 +43,14 @@ function App() {
       }
   }
 
-  function Remove(name){
-      const index = item.findIndex(i => i.nome === name);
+  function Remove(name, value){
       const foundRemove = item.find(item => item.nome === name);
       if (foundRemove) {
+          const index = item.findIndex(i => i.nome === name);
           const newItem = [...item];
           newItem.splice(index, 1);
           setItem(newItem);
-          setValor(prev => Math.max(prev - itemSelectNameValue, 0));
+          setValor(prev => Math.max(prev - value, 0));
       }
   }
 
