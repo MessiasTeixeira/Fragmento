@@ -1,6 +1,15 @@
 import { atualizarContador } from "../lib/utils.js";
+import { useFragmento } from "../contexts/fragmentoContexts.js";
 
-function Cart({ cartOpen, setCartOpen, handleClick, setQtdCart, item, valor}) {
+function Cart() {
+    const { 
+        cartOpen, 
+        setCartOpen, 
+        setQtdCart,
+        handleClick,
+        item, 
+        valor 
+    } = useFragmento();
     return (
         <div>
             <div id="carrinho-sidebar" className={`fixed top-0 right-0 h-full w-80 bg-white shadow-xl transform transition-transform duration-300 ease-in-out z-50 ${cartOpen ? " " : "translate-x-full"}`}>

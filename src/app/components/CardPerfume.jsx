@@ -1,7 +1,13 @@
 import { formatarPreco } from '../lib/utils.js';
 import { colecao } from '../data/data.js';
+import { useFragmento } from '../contexts/fragmentoContexts.js';
 
-function CriarCardPerfume({ setCartOpen, setQtdCart, handleClick }) {
+function CriarCardPerfume() {
+    const{
+        setCartOpen,
+        setQtdCart,
+        handleClick
+    } = useFragmento();
     return (
         <section id="colecao-container" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {colecao.map((item, i) => (
