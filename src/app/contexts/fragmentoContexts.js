@@ -15,6 +15,7 @@ export function FragmentoProvider({ children }) {
     const [itemSelectNameValue, setItemSelectNameValue] = useState(null);
     const [type, setType] = useState(null);
     const [data, setData] = useState([]);
+    const [showAlert, setShowAlert] = useState(false);
 
     const handleSubmit = async () => {
         if (data.length === 0) return;
@@ -98,7 +99,9 @@ export function FragmentoProvider({ children }) {
             Remove,
             handleSubmit,
             setModalOpen,
-            modalOpen
+            modalOpen,
+            showAlert, 
+            setShowAlert
             }}
         >
             {children}

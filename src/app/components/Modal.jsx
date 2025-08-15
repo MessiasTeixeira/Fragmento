@@ -5,7 +5,8 @@ function CreditCardModal() {
     const {
         modalOpen,
         setModalOpen,
-        handleSubmit
+        handleSubmit,
+        setShowAlert
     } = useFragmento();
 
     const [cardNumber, setCardNumber] = useState("");
@@ -59,6 +60,7 @@ function CreditCardModal() {
             }
         }
     }, [expiry]);
+
 
     return (
         <div className={`fixed inset-0 flex items-center justify-center z-50 bg-black/50 bg-opacity-10 ${modalOpen ? " " : "translate-x-full"}`}>
@@ -126,7 +128,7 @@ function CreditCardModal() {
                 Cancela
                 </button>
                 <button
-                    onClick={handleSubmit}
+                    onClick={() => { setShowAlert(true); handleSubmit(); setModalOpen(false) }}
                     type="submit"
                     className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
                     >

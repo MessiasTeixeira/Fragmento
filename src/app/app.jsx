@@ -8,12 +8,17 @@ import Contact from './components/Contact';
 import CriarCardFragrance from './components/CardFragrance';
 import CriarCardPerfume from './components/CardPerfume';
 import CreditCartModal from './components/modal';
+import Alarm from './components/alarm';
+import { useFragmento } from './contexts/fragmentoContexts.js';
+
 
 function App() {
+  const { showAlert} = useFragmento();
   return (
     <div>
       <Navbar/>
       <Cart/>
+      {showAlert && <Alarm/>}
       <CreditCartModal/>
       <Hero/>
       <Collection/>
