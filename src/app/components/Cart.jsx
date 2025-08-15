@@ -9,7 +9,6 @@ function Cart() {
         handleClick,
         item, 
         valor,
-        handleSubmit,
         setModalOpen
     } = useFragmento();
     return (
@@ -66,7 +65,7 @@ function Cart() {
                                     </button>
                                 </div>
                             </div>
-                            <button onClick={() => setModalOpen(true)} className="cursor-pointer w-full bg-amber-800 text-white py-2 px-4 rounded hover:bg-amber-700 transition-colors">
+                            <button onClick={() => { if (item.length > 0) setModalOpen(true); }} className="cursor-pointer w-full bg-amber-800 text-white py-2 px-4 rounded hover:bg-amber-700 transition-colors">
                                 Finalizar Compra
                             </button>
                         </div>
