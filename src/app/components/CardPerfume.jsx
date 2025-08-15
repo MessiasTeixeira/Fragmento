@@ -10,8 +10,8 @@ function CriarCardPerfume() {
     } = useFragmento();
     return (
         <section id="colecao-container" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {colecao.map((item, i) => (
-                <div key={i} className="bg-white rounded-lg shadow-md overflow-hidden">
+            {colecao.map((item) => (
+                <div key={item.id} className="bg-white rounded-lg shadow-md overflow-hidden">
                     <div className="relative pb-2/3">
                         <img src={item.imagem} alt={item.nome} className="absolute h-full w-full object-cover"/>
                     </div>

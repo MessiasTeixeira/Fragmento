@@ -8,7 +8,9 @@ function Cart() {
         setQtdCart,
         handleClick,
         item, 
-        valor 
+        valor,
+        handleSubmit,
+        setModalOpen
     } = useFragmento();
     return (
         <div>
@@ -28,7 +30,7 @@ function Cart() {
                         <div id="carrinho-items" className="space-y-4">
                             {item.map((item, i) => (
                                 <div key={i} className="flex items-center space-x-4 p-4 border-b">
-                                    <img src={item.imagem} alt={item.nome} className="w-16 h-16 object-cover rounded" />
+                                    <img src="/logo.png" alt={item.nome} className="w-16 h-16 object-cover rounded" />
                                     <div className="flex-1">
                                         <h3 className="font-medium">{item.nome}</h3>
                                         <p className="text-amber-800">{item.preco}</p>
@@ -64,7 +66,7 @@ function Cart() {
                                     </button>
                                 </div>
                             </div>
-                            <button className="cursor-pointer w-full bg-amber-800 text-white py-2 px-4 rounded hover:bg-amber-700 transition-colors">
+                            <button onClick={() => setModalOpen(true)} className="cursor-pointer w-full bg-amber-800 text-white py-2 px-4 rounded hover:bg-amber-700 transition-colors">
                                 Finalizar Compra
                             </button>
                         </div>

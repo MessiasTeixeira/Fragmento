@@ -7,12 +7,14 @@ import History from './components/History';
 import Contact from './components/Contact';
 import CriarCardFragrance from './components/CardFragrance';
 import CriarCardPerfume from './components/CardPerfume';
+import CreditCartModal from './components/modal';
 
 function App() {
   return (
     <div>
       <Navbar/>
       <Cart/>
+      <CreditCartModal/>
       <Hero/>
       <Collection/>
       <CriarCardPerfume/>

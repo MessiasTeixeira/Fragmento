@@ -2,6 +2,7 @@
 
 import {colecao, fragrancia} from "../data/data.js"; 
 import { createContext , useContext , useState} from "react";
+import { create } from "../storage/storagefetch.js";
 
 export const FragmentoContext = createContext();
 
@@ -13,6 +14,24 @@ export function FragmentoProvider({ children }) {
     const [itemSelect, setItemSelect] = useState(null);
     const [itemSelectNameValue, setItemSelectNameValue] = useState(null);
     const [type, setType] = useState(null);
+    const [data, setData] = useState([]);
+
+    const handleSubmit = async () => {
+        if (data.length === 0) return;
+        try {
+            for (const item of data) {
+                await create('produtos', item);
+                console.log(item)
+            }
+            setData([]);
+            setItem([]);
+            setValor(0);
+            setQtdCart(0);
+        } catch (err) {
+            console.error("Erro ao enviar os itens", err);
+        }
+    };
+
     const handleClick = ( name, value, type) => {
         setItemSelect(name);
         setItemSelectNameValue(value);
@@ -31,10 +50,16 @@ export function FragmentoProvider({ children }) {
 
     function Add(name, value){
         setValor(prev => prev + Number(value));
-        console.log(name, value);
         const foundAdd = colecao.find(item => item.nome === name) || fragrancia.find(item => item.nome === name);
         if (foundAdd) {
             setItem(prev => [...prev, foundAdd]);
+            setData(prev => [...prev, { 
+                id: foundAdd.id, 
+                nome: foundAdd.nome, 
+                preco: foundAdd.preco,
+                descricao: foundAdd.descricao,
+                categoria: foundAdd.categoria,
+            }]);
         }
     }
 
@@ -46,8 +71,11 @@ export function FragmentoProvider({ children }) {
             newItem.splice(index, 1);
             setItem(newItem);
             setValor(prev => Math.max(prev - value, 0));
+            setData(prev => prev.filter(item => item.nome !== name));
         }
     }
+    
+    const [modalOpen, setModalOpen] = useState(false);
 
     return (
         <FragmentoContext.Provider value={{ 
@@ -67,7 +95,10 @@ export function FragmentoProvider({ children }) {
             setType,
             handleClick,
             Add,
-            Remove
+            Remove,
+            handleSubmit,
+            setModalOpen,
+            modalOpen
             }}
         >
             {children}
