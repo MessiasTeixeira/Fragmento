@@ -30,36 +30,20 @@ function CreditCardModal() {
         };
     }, [modalOpen]);
 
-    useEffect(() => {
-        if (!backspace) {
-            const insertPositions = [4, 9, 14];
+        const formatCardNumber = (value) => {
+            return value
+                .replace(/\D/g, "")               
+                .replace(/(\d{4})(?=\d)/g, "$1 ") 
+                .trim();                           
+        };
 
-            if (insertPositions.includes(cardNumber.length)) {
-                setCardNumber(prev => prev + " ");
-            }
-            
-            if (cardNumber.length === 5 && cardNumber[4] !== " ") {
-                setCardNumber(cardNumber.slice(0, 4) + " " + cardNumber.slice(5));
-            }
-            if (cardNumber.length === 10 && cardNumber[9] !== " ") {
-                setCardNumber(cardNumber.slice(0, 9) + " " + cardNumber.slice(10));
-            }
-            if (cardNumber.length === 15 && cardNumber[14] !== " ") {
-                setCardNumber(cardNumber.slice(0, 14) + " " + cardNumber.slice(15));
-            }
-        }
-    }, [cardNumber]);
 
-    useEffect(() => {
-        if (!backspace) {
-            if (expiry.length === 2) {
-                setExpiry(prev => prev + "/");
-            }
-            if (expiry.length === 3) {
-                setExpiry(expiry.slice(0, 2) + "/" + expiry.slice(3));
-            }
-        }
-    }, [expiry]);
+        const formatExpiry = (value) => {
+            return value
+                .replace(/\D/g, "")         
+                .replace(/^(\d{2})(\d)/, "$1/$2") 
+                .slice(0, 5);                
+        };
 
     function Size(){
         if (cardNumber.length === 19 && name.length > 0 && expiry.length === 5 && cvv.length == 4) {
@@ -80,7 +64,7 @@ function CreditCardModal() {
                     placeholder="0000 0000 0000 0000"
                     maxLength={19}
                     value={cardNumber}
-                    onChange={(e) => {if (/^[\d\s]*$/.test(e.target.value)) setCardNumber(e.target.value);}}
+                    onChange={(e) => {if (/^[\d\s]*$/.test(e.target.value)) setCardNumber(formatCardNumber(e.target.value));}}
                     onKeyDown={(e) => {if (e.key === "Backspace") setBackspace(true); else setBackspace(false);}} 
                     className="mt-1 block w-full border rounded-lg p-2"
                     required
@@ -105,7 +89,7 @@ function CreditCardModal() {
                     type="text"
                     maxLength={5}
                     value={expiry}
-                    onChange={(e) => { if (/^[0-9/]*$/.test(e.target.value)) setExpiry(e.target.value) }}
+                    onChange={(e) => { if (/^[0-9/]*$/.test(e.target.value)) setExpiry(formatExpiry(e.target.value)) }}
                     onKeyDown={e => {if (e.key === "Backspace") setBackspace(true); else setBackspace(false);}}
                     placeholder="MM/AA"
                     className="mt-1 block w-full border rounded-lg p-2"
@@ -135,7 +119,7 @@ function CreditCardModal() {
                 </button>
                 <button
                     disabled={!Size()}
-                    onClick={() => { setShowAlert(true); handleSubmit(); setModalOpen(false) }}
+                    onClick={(e) => { setShowAlert(true); handleSubmit(); setModalOpen(false); e.preventDefault();}}
                     type="submit"
                     className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
                     >
