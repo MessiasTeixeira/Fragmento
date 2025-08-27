@@ -1,6 +1,5 @@
 'use client';
 
-import {colecao, fragrancia} from "../data/data.js"; 
 import { createContext , useContext , useState} from "react";
 import { create } from "../storage/storagefetch.js";
 
@@ -16,13 +15,14 @@ export function FragmentoProvider({ children }) {
     const [type, setType] = useState(null);
     const [data, setData] = useState([]);
     const [showAlert, setShowAlert] = useState(false);
+    const [fragmento, setFragmento] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const handleSubmit = async () => {
         if (data.length === 0) return;
         try {
             for (const item of data) {
                 await create('produtos', item);
-                console.log(item)
             }
             setData([]);
             setItem([]);
@@ -51,7 +51,7 @@ export function FragmentoProvider({ children }) {
 
     function Add(name, value){
         setValor(prev => prev + Number(value));
-        const foundAdd = colecao.find(item => item.nome === name) || fragrancia.find(item => item.nome === name);
+        const foundAdd = fragmento.find(item => item.nome === name);
         if (foundAdd) {
             setItem(prev => [...prev, foundAdd]);
             setData(prev => [...prev, { 
@@ -101,7 +101,11 @@ export function FragmentoProvider({ children }) {
             setModalOpen,
             modalOpen,
             showAlert, 
-            setShowAlert
+            setShowAlert,
+            fragmento,
+            setFragmento,
+            loading,
+            setLoading
             }}
         >
             {children}
